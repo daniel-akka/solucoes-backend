@@ -21,8 +21,8 @@ public class UsuarioServico {
 	
 	public Usuario salvar(Usuario usuario) {
 		Usuario novoUsuario = repo.save(usuario);
-		novoUsuario.add(linkTo(methodOn(UsuarioRecurso.class).todos())
-				.withRel("Lista de Produtos"));
+		/*novoUsuario.add(linkTo(methodOn(UsuarioRecurso.class).todos())
+				.withRel("Lista de Produtos")); */
 		return novoUsuario;
 	}
 	
@@ -63,13 +63,33 @@ public class UsuarioServico {
 		Optional<Usuario> opt = repo.findById(ID);
 		if (opt.isEmpty()) {return opt;}
 		
-		opt.get().add(linkTo(methodOn(UsuarioRecurso.class).todos()).withRel("Lista de Produtos"));
 
 		return opt;
 	}
+	
+	public Usuario updateSenha(String email, String senha) {
+		
+		Usuario usu = this.BuscaUsuarioPorEmail(email);
+		if (usu == null) {return null;}
+		
+		usu.setSenha(senha);
+		repo.save(usu);
+		
+		return usu;
+	}
+	
 	
 	public List<RecordUsuarioLoginEmail> loginEmailDosUsuario(){
 		return repo.loginEmailDeUsuarios();
 	}
 	
+	
+	public Usuario BuscaUsuarioPorEmail(String email) {
+		
+		Usuario usu = repo.findUsuarioByEmail(email);
+		if (!(usu.getId() instanceof UUID)) {return null;}
+		
+
+		return usu;
+	}
 }

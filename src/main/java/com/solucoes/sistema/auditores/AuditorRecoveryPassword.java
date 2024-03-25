@@ -15,7 +15,7 @@ public class AuditorRecoveryPassword {
 	
 	@PostLoad
 	public void atualizaAtributos(RecoveryPassword recovery) {
-		this.atualizaAconfirmar(recovery);
+		//this.atualizaAconfirmar(recovery);
 		this.diasVencimentoLink(recovery);
 	}
 	
@@ -28,24 +28,14 @@ public class AuditorRecoveryPassword {
 				.sendEmail();
 		
 		recovery.setData_envio(LocalDateTime.now());
-	}
-	
-	private void atualizaAconfirmar(RecoveryPassword recovery) {
-		long dias_vencimento = ChronoUnit.DAYS
-				.between(recovery.getData_envio(), LocalDateTime.now());
-		
-		if (dias_vencimento > 2) {
-			recovery.setAConfirmar(false);
-			//repo.save(recovery);
-		}
-	}
-	
+	}	
 	
 	private void diasVencimentoLink(RecoveryPassword recovery) {
 		long dias = ChronoUnit.DAYS
 				.between(recovery.getData_envio(), LocalDateTime.now());
 		
 		if (dias > 2) {
+			recovery.setDiasVencimento(dias);
 			recovery.setMensagemVencimento(
 					"O prazo de 2 dias para o link venceu! Faça um novo pedido de recuperação!"); 
 					

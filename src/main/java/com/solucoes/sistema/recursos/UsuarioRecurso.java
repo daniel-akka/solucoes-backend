@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.solucoes.sistema.dtos.crud.UsuarioRecordDto;
 import com.solucoes.sistema.entidades.Usuario;
 import com.solucoes.sistema.servicos.UsuarioServico;
@@ -54,6 +53,7 @@ public class UsuarioRecurso {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(optUsuario.get());
 	}
+	
 	
 	@PutMapping("/view/{id}")
 	public ResponseEntity<Object> updateUsuario(@PathVariable(value = "id") UUID id, 

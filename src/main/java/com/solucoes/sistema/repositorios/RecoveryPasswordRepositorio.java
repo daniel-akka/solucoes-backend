@@ -1,5 +1,6 @@
 package com.solucoes.sistema.repositorios;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import com.solucoes.sistema.entidades.RecoveryPassword;
 
 public interface RecoveryPasswordRepositorio extends JpaRepository<RecoveryPassword, UUID> {
 
-	@Query("SELECT EXISTS(SELECT p.a_confirmar FROM RecoveryPassword p WHERE " 
-			+ "p.email = :email AND p.a_confirmar = true)")
-	public boolean existRecoveryPendente(@Param("email") String email);
+	@Query("SELECT p FROM RecoveryPassword p WHERE " 
+			+ "p.email = :email AND p.a_confirmar = true")
+	Optional<RecoveryPassword> existRecoveryPendente(@Param("email") String email);
 }

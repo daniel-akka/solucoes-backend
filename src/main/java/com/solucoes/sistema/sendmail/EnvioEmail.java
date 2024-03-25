@@ -12,7 +12,7 @@ public class EnvioEmail implements ISendEmail{
 	private String emailDestinatario = "";
 	private String titulo = "";
 	private String mensagemBody = "";
-	private String link = "http:/localhost:8081/RecoveryPassword/id=";
+	private String link = "http:/localhost:8080/RecoveryPassword/?id=";
 	
 	@Autowired
 	private JavaMailSenderImpl sender;
